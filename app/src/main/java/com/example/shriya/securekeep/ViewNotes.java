@@ -2,6 +2,8 @@ package com.example.shriya.securekeep;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -13,19 +15,26 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static android.text.InputType.*;
 
 /**
  * Created by shriya on 20/8/15.
@@ -39,9 +48,9 @@ public class ViewNotes extends ActionBarActivity {
     //Similarly we Create a String Resource for the name and email in the header view
     //And we also create a int resource for profile picture in the header view
 
-    String NAME = "Shriya Sasank";
-    String EMAIL = "shriya.sasank@gmail.com";
-    int PROFILE = R.drawable.me;
+    String NAME = "Hafeeza Kuljar";
+    String EMAIL = "hafeezakuljar95@gmail.com";
+    int PROFILE = R.drawable.me1;
 
     private Toolbar toolbar;                              // Declaring the Toolbar Object
 
@@ -52,7 +61,7 @@ public class ViewNotes extends ActionBarActivity {
 
     ActionBarDrawerToggle mDrawerToggle;                  // Declaring Action Bar Drawer Toggle
 
-
+    ArrayAdapter<String> adapter = null;
 
 
     ArrayList<String> FilesInFolder = new ArrayList<String>();
@@ -72,41 +81,10 @@ public class ViewNotes extends ActionBarActivity {
             for (int i = 0; i < FilesInFolder.size(); ++i) {
                 list.add(FilesInFolder.get(i));
             }
-            final ArrayAdapter<String> adapter = new ArrayAdapter(ViewNotes.this,
+            adapter = new ArrayAdapter(ViewNotes.this,
                     android.R.layout.simple_list_item_1, list);
             listview.setAdapter(adapter);
-
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, final View view,
-                                        int position, long id) {
-                    refresh();
-                    final String item = (String) parent.getItemAtPosition(position);
-                    selectedFromList = Environment.getExternalStorageDirectory().
-                            getAbsolutePath() + "/SecureKeep/Shriya/Notes/" + (String) (listview.getItemAtPosition(position));
-                            registerForContextMenu(listview);
-                    try {
-//                        File file = new File(selectedFromList);
-//                        Intent intent = new Intent(Intent.ACTION_VIEW);
-//                        intent.setDataAndType(Uri.fromFile(file), "text/plain");
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//                        Log.w("app", "opening text file");
-//                        startActivity(intent);
-
-                        //read file and place contents in text view
-                        Intent i = new Intent(ViewNotes.this,ViewNote.class);
-                        i.putExtra("filename",(String) (listview.getItemAtPosition(position)));
-                        startActivity(i);
-                    } catch (Exception e) {
-                    }
-
-
-                }
-
-            });
-
-
+            registerForContextMenu(listview);
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
@@ -257,6 +235,95 @@ public class ViewNotes extends ActionBarActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, list);
         listview.setAdapter(adapter);
+        registerForContextMenu(listview);
     }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        // Get the info on which item was selected
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
+        // Get the Adapter behind your ListView (this assumes you're using
+        // a ListActivity; if you're not, you'll have to store the Adapter yourself
+        // in some way that can be accessed here.)
+        // Retrieve the item that was clicked on
+        selectedFromList = adapter.getItem(info.position);
+        menu.setHeaderTitle(selectedFromList);
+        menu.add(0, v.getId(), 0, "View");
+        menu.add(0, v.getId(), 0, "Delete");
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Toast.makeText(this,"clicked "+item.getTitle(),Toast.LENGTH_LONG);
+        if (item.getTitle() == "View") {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                //you should edit this to fit your needs
+                builder.setTitle("Double Edit Text");
+
+                final EditText one = new EditText(this);
+                one.setHint("username");//optional
+                final EditText two = new EditText(this);
+                two.setHint("password");//optional
+
+                //in my example i use TYPE_CLASS_NUMBER for input only numbers
+                one.setInputType(TYPE_CLASS_TEXT);
+                two.setInputType(TYPE_CLASS_TEXT);
+
+                LinearLayout lay = new LinearLayout(this);
+                lay.setOrientation(LinearLayout.VERTICAL);
+                lay.addView(one);
+                lay.addView(two);
+                builder.setView(lay);
+
+                // Set up the buttons
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //get the two inputs
+                        String u = one.getText().toString();
+                        String p = two.getText().toString();
+                        Log.w("",u+p);
+                        if (u.equals("feeza") && p.equals("feeza")) {
+                            Intent i = new Intent(ViewNotes.this, ViewNote.class);
+                            i.putExtra("filename", selectedFromList);
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Username/Password incorrect!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+
+
+
+        } else if (item.getTitle() == "Delete") {
+               new AlertDialog.Builder(this)
+                    .setTitle("Delete File")
+                    .setMessage("Do you really want to delete "+selectedFromList+"?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SecureKeep/Shriya/Notes";
+                            path+="/"+selectedFromList;
+                            File file = new File(path);
+                            file.delete();
+                            refresh();
+                            Toast.makeText(ViewNotes.this,"Deleted "+selectedFromList,Toast.LENGTH_SHORT);
+                        }})
+                    .setNegativeButton(android.R.string.no, null).show();
+
+        } else {
+            return false;
+        }
+        return true;
+    }
 }

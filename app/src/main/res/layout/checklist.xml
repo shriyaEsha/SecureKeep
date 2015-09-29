@@ -1,0 +1,99 @@
+<android.support.v4.widget.DrawerLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/DrawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="7dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:id="@+id/layout1">
+
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar">
+        </include>
+
+        <Button
+
+            android:layout_marginTop="5dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/trash"
+            android:id="@+id/delnote"
+            android:layout_below="@+id/tool_bar"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp" />
+
+        <Button
+            android:layout_marginTop="5dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/pencil"
+            android:id="@+id/newlist"
+            android:layout_alignBottom="@+id/delnote"
+            android:layout_toRightOf="@+id/delnote"
+            android:layout_toEndOf="@+id/delnote"
+            android:layout_marginLeft="15dp"
+            />
+        <Button
+
+            android:layout_marginTop="5dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/save"
+            android:id="@+id/savenote"
+            android:layout_below="@+id/tool_bar"
+            android:layout_toRightOf="@+id/newlist"
+            android:layout_toEndOf="@+id/newlist"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp" />
+
+        <Button
+            android:layout_marginTop="5dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/view"
+            android:id="@+id/viewnote"
+            android:layout_alignBottom="@+id/savenote"
+            android:layout_toRightOf="@+id/savenote"
+            android:layout_toEndOf="@+id/savenote"
+            android:layout_marginLeft="15dp"
+            />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="100dip"
+            android:id="@+id/notetitle"
+            android:background="#ddd"
+            android:hint="Title"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="30dp"/>
+
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecyclerView"
+        android:layout_width="325dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+
+        android:background="#fff"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</android.support.v4.widget.DrawerLayout>

@@ -1,5 +1,4 @@
 package com.example.shriya.securekeep;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
-
 /**
  * Created by shriya on 1/28/2015.
  */

@@ -35,9 +35,9 @@ public class Notes extends ActionBarActivity {
     //Similarly we Create a String Resource for the name and email in the header view
     //And we also create a int resource for profile picture in the header view
 
-    String NAME = "Shriya Sasank";
-    String EMAIL = "shriya.sasank@gmail.com";
-    int PROFILE = R.drawable.me;
+    String NAME = "Hafeeza Kuljar";
+    String EMAIL = "hafeezakuljar95@gmail.com";
+    int PROFILE = R.drawable.me1;
 
     private Toolbar toolbar;                              // Declaring the Toolbar Object
 
@@ -163,7 +163,6 @@ public class Notes extends ActionBarActivity {
 
 
 
-
     /* Assinging the toolbar object ot the view
     and setting the the Action bar to our toolbar
      */
@@ -275,32 +274,37 @@ public class Notes extends ActionBarActivity {
         toggleLock = 1;
         cipherkey2 = ((EditText) findViewById(R.id.cipherkey)).getText().toString();
         cipherkey1 = ((EditText) findViewById(R.id.cipherkey)).getText().toString().getBytes();
+        Log.w("","Cipherkey: "+cipherkey2+"Booyah");
+        if(cipherkey2.equals(""))
+        {   Log.w("","Cipherkey: "+"NoBooyah");
+            Toast.makeText(this,"Enter cipherkey!",Toast.LENGTH_LONG);
+        }
+        else {
+            Button cryptnote1 = (Button) findViewById(R.id.cryptnote);
+            final EditText noteText = (EditText) findViewById(R.id.editText);
+            cryptnote1.setBackground(getResources().getDrawable(R.drawable.lock));
+            noteText.setBackgroundColor(Color.parseColor("#000000"));
+            noteText.setCursorVisible(false);
+            notes = noteText.getText().toString().getBytes();
+            clen = cipherkey2.length();
+            ciphernote = new char[notes.length];
 
-        Button cryptnote1 = (Button) findViewById(R.id.cryptnote);
-        final EditText noteText = (EditText) findViewById(R.id.editText);
-        cryptnote1.setBackground(getResources().getDrawable(R.drawable.lock));
-        noteText.setBackgroundColor(Color.parseColor("#000000"));
-        noteText.setCursorVisible(false);
-        notes = noteText.getText().toString().getBytes();
-        clen = cipherkey2.length();
-        ciphernote = new char[notes.length];
+            for (int i = 0, j = 0; i < notes.length; i++, j++) {
+                if (notes[i] == ' ') {
+                    ciphernote[i] = ' ';
+                    continue;
 
-        for (int i = 0, j = 0; i < notes.length; i++, j++) {
-            if (notes[i] == ' ') {
-                ciphernote[i] = ' ';
-                continue;
-
-            }
-            if (j >= (clen))
-                j = 0;
-            ciphernote[i] = (char) (notes[i] ^ cipherkey1[j]);
-        }//for
-        String ciphernote1 = new String(ciphernote);
-        //Toast.makeText(Notes.this,"full note: "+ciphernote1,Toast.LENGTH_LONG).show();
-        Log.w("","ciphertext in encrypt: "+ciphernote1);
-        noteText.setText(ciphernote1);
-        Toast.makeText(this, "Your message has been encrypted!", Toast.LENGTH_SHORT);
-
+                }
+                if (j >= (clen))
+                    j = 0;
+                ciphernote[i] = (char) (notes[i] ^ cipherkey1[j]);
+            }//for
+            String ciphernote1 = new String(ciphernote);
+            //Toast.makeText(Notes.this,"full note: "+ciphernote1,Toast.LENGTH_LONG).show();
+            Log.w("", "ciphertext in encrypt: " + ciphernote1);
+            noteText.setText(ciphernote1);
+            Toast.makeText(this, "Your message has been encrypted!", Toast.LENGTH_SHORT);
+        }
 
     }
     @Override
@@ -313,6 +317,7 @@ public class Notes extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();

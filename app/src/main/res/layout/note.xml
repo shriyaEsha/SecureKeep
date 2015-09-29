@@ -19,16 +19,6 @@
             layout="@layout/tool_bar">
         </include>
 
-        <!--<Button-->
-            <!---->
-            <!--android:layout_width="25dp"-->
-            <!--android:layout_height="25dp"-->
-            <!--android:background="@drawable/pencil"-->
-            <!--android:id="@+id/newnote"-->
-            <!--android:layout_alignTop="@+id/delnote"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true" />-->
-
         <Button
 
             android:layout_marginTop="5dp"

@@ -70,7 +70,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         }
 
-
             public void onClick(View view) {
                 int position  =   getPosition();
 
@@ -87,7 +86,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                        break;
                     case 2:
                         Log.w("","Clicked Checklists!");
-                        intent =  new Intent(context, TodoActivity.class);
+                        intent =  new Intent(context, Checklists.class);
                         context.startActivity(intent);
                         break;
 

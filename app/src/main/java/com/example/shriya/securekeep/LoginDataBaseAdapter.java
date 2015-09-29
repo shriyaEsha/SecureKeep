@@ -124,7 +124,6 @@ public class LoginDataBaseAdapter {
         ContentValues args = new ContentValues();
         args.put("LOGGED", "no");
         db.update("LOGIN", args, null, null);
-
         Log.w("app","Logged OUT NOW!!!!");
     }
     public int getLogged()

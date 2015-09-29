@@ -38,9 +38,9 @@ public class ViewNote extends ActionBarActivity {
     //Similarly we Create a String Resource for the name and email in the header view
     //And we also create a int resource for profile picture in the header view
 
-    String NAME = "Shriya Sasank";
-    String EMAIL = "shriya.sasank@gmail.com";
-    int PROFILE = R.drawable.me;
+    String NAME = "Hafeeza Kuljar";
+    String EMAIL = "hafeezakuljar95@gmail.com";
+    int PROFILE = R.drawable.me1;
 
     private Toolbar toolbar;                              // Declaring the Toolbar Object
 
@@ -151,9 +151,9 @@ public class ViewNote extends ActionBarActivity {
 
                 //toggle
                 Log.w("","clicked encrypt");
-                if (toggleLock == 0) {
+                if (toggleLock == 1) {
                     encrypt();
-                } else if (toggleLock == 1) {
+                } else if (toggleLock == 0) {
                     decrypt();
 
                 }
@@ -268,7 +268,7 @@ public class ViewNote extends ActionBarActivity {
         clen = cipherkey2.length();
         ciphernote = new char[notes.length];
         //start encryption
-        toggleLock = 0;
+        toggleLock = 1;
         noteText.setBackgroundColor(Color.parseColor("#ffffff"));
         noteText.setCursorVisible(true);
         //encrypt
@@ -313,7 +313,7 @@ public class ViewNote extends ActionBarActivity {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void encrypt(){
-        toggleLock = 1;
+        toggleLock = 0;
         cipherkey2 = ((EditText) findViewById(R.id.cipherkey)).getText().toString();
         cipherkey1 = ((EditText) findViewById(R.id.cipherkey)).getText().toString().getBytes();
 

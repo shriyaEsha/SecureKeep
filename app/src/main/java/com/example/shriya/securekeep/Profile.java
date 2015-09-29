@@ -28,9 +28,9 @@ public class Profile extends ActionBarActivity {
     //Similarly we Create a String Resource for the name and email in the header view
     //And we also create a int resource for profile picture in the header view
 
-    String NAME = "Shriya Sasank";
-    String EMAIL = "shriya.sasank@gmail.com";
-    int PROFILE = R.drawable.me;
+    String NAME = "Hafeeza Kuljar";
+    String EMAIL = "hafeezakuljar95@gmail.com";
+    int PROFILE = R.drawable.me1;
 
     private Toolbar toolbar;                              // Declaring the Toolbar Object
 

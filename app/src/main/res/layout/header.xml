@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:textColor="#fff"
-            android:text="Shriya Sasank"
+            android:text="Hafeeza Fathima"
             android:textSize="14sp"
             android:textStyle="bold"
 
@@ -35,7 +35,7 @@
             android:textColor="#fff"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
-            android:text="shriya.sasank@gmail.com"
+            android:text="hafeezakuljar95@gmail.com"
             android:textSize="14sp"
             android:textStyle="normal"
             />
